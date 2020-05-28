@@ -9,8 +9,17 @@ public class PlayerController : MonoBehaviour
     private float hInput;
     private float eInput;
 
+    
     private Rigidbody rb;
     private AudioSource audioSource;
+
+
+
+    
+    public GameObject bulletSpawnPoint;
+    public float waitTime;
+    public GameObject bullet;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +38,12 @@ public class PlayerController : MonoBehaviour
         vInput = Input.GetAxis("Vertical") * speed;
         hInput = Input.GetAxis("Horizontal") * rotSpeed;
         eInput = Input.GetAxis("Elevate") * speed;
+       
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            shoot();
+        }
+        
 
     }
 
@@ -46,13 +61,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer==11)
         {
             Destroy(other.gameObject);
             audioSource.Play();
         }
+    }
+    */
+
+    public void shoot()
+    {
+        Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
+
     }
 
 }
